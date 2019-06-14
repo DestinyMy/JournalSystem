@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.f5.mapper.MagazineDetailsMapper">
+     <insert id="insertDetailItem" parameterType="detailItem">
+     	insert into MagazineDetials(journalName,pubyear,pubvolume,pubphase,papertitle,
+     	                            paperauthor,paperkeyword,paperpagestart,paperpageend,regid)
+     	values(#{journalName},#{pubyear},#{pubvolume},#{pubphase},#{papertitle},
+     	       #{paperauthor},#{paperkeyword},#{paperpagestart},#{paperpageend},#{regid});
+     </insert>
+     <select id="doSearchfromDetailByAuthor" resultType="detailItem">
+     	select * from MagazineDetials where paperauthor like CONCAT('%',#{paperauthor},'%')
+     </select>
+     
+     <select id="doSearchfromDetailByKeyword" resultType="detailItem">
+     	select * from MagazineDetials where paperkeyword like CONCAT('%',#{keyword},'%')
+     </select>
+</mapper>

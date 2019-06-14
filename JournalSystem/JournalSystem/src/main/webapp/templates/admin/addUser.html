@@ -1,0 +1,90 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>添加用户</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+  
+    <link rel="stylesheet" href="../../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+	<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../../plugins/bootstrap/js/bootstrap.min.js"></script> 
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" >
+<!-- 正文区域 -->
+	<section class="content">
+	   <div class="box-body">
+	        <!--tab页-->
+		<div class="nav-tabs-custom">
+	    <!--tab头-->
+			<ul class="nav nav-tabs">
+	    		<li class="active">
+	        		<a href="#home" data-toggle="tab">添加用户</a>                             
+	    		</li>                            
+			</ul>
+			<!--tab头/-->
+			<!--tab内容-->
+			<div class="tab-content">
+	   			 <!--表单内容-->
+                <div class="tab-pane active" id="home">
+                     <div class="row data-type">                                  
+						<form id="form-adduser" action="/JournalSystem/user/addUser.do" method="POST">	
+							<span id="hint" class="col-md-12" style="color:red"></span>
+							<div class="col-md-2 title">用户号</div>
+                            <div class="col-md-10 data">
+                                <input id="input-id" type="text" name="id" class="form-control"  placeholder="输入用户ID" value="">
+                            </div>
+							<div class="col-md-2 title">用户姓名</div>
+                            <div class="col-md-10 data">
+                                <input id="input-username" type="text" name="userName" class="form-control"  placeholder="输入用户姓名" value="">
+                            </div>
+                            <div class="col-md-2 title">用户密码</div>
+                            <div class="col-md-10 data">
+                                <input id="input-password" type="text" name="password" class="form-control"   placeholder="输入密码" value="">
+                            </div>
+                            <center>
+	                            <input type="submit" class="btn btn-danger" name="提交"/>
+                            </center>
+						</form>
+                    </div>
+               </div>        
+         	</div>		 
+		 </div>
+	   </div>
+	</section>
+      <!-- 正文区域 /-->
+<script type="text/javascript">
+$("#form-adduser").submit(function(){
+	$.ajax({
+		url:'/JournalSystem/admin/adduser.do',
+		type:'POST',
+		data:$(this).serialize(),
+		cache:false,
+		success:function(data){
+			$("#input-id").val("");
+			$("#input-username").val("")
+			$("#input-password").val("")
+			if(data['isSuccess']=='true'){
+				$('#hint').text("用户插入成功");
+			}else{
+				$('#hint').text(data['error']);
+			}
+		},
+		error:function(data){
+		}
+	})
+	return false;
+}
+)
+</script>
+       
+</body>
+
+</html>

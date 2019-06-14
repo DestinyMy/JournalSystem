@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.f5.mapper.MagazineSubMapper">
+     <insert id="insertMagazineSub" parameterType="magazinesub">
+     	insert into MagazineSub(postNumber,journalName,subscriptYear) 
+     	values(#{postNumber},#{journalName},#{subscriptYear})
+     </insert>
+     <select id="selectAllMagazineSub" resultType="magazinesub">
+     	select * from MagazineSub;
+     </select>
+     <delete id="deleteMagazineSub" parameterType="long">
+     	delete from MagazineSub where id=#{id}
+     </delete>
+</mapper>

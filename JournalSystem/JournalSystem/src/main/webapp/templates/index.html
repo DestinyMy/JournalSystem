@@ -1,0 +1,278 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/pages-sampling.css}" />
+    <script type="text/javascript" th:src="@{/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/plugins/bootstrap/css/bootstrap.min.css}"/>
+	<script type="text/javascript" th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/index.js}"></script>
+</head>
+<body>
+	<div class="nav">
+		<ul>
+			<li class="nav-li">
+				<img src="img/library/logo.png" usemap="#map1">
+				<map name="map1">
+					<area href="/JournalSystem/index.do" shape="rect" coords="-2,-2,320,78" target=_blank >
+				</map>
+			</li>
+			<li class="nav-li"><a class="start" href="/JournalSystem/index.do" style="font-family:宋体">首页</a></li>
+			<li class="nav-li"><a class="behind1" href="" style="font-family:宋体">我的图书馆</a></li>
+			<li class="nav-li"><a class="behind2" href="" style="font-family:宋体">资源</a></li>
+			<li class="nav-li"><a class="behind3" href="" style="font-family:宋体">更多</a></li>
+			<li id="login_button" class="nav-li"><a class="behind4" href="/JournalSystem/user/login.do" style="font-family:宋体">登录</a></li>
+			<li class="nav-li"><a id = "msg" href="#" class="behind5" onClick="usermsg()" data-toggle="modal" data-target="#more-frame" style="font-family:宋体">个人信息</a></li>
+		</ul>
+	</div>
+	<!-- 个人信息 -->
+	<div class="modal fade" id="more-frame" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" >
+		<div class="modal-dialog" role="document" style="width:70%">
+			<div class="modal-content col-lg-12 col-offset-lg-2" style="width:100%" >
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h3 class="modal-title" style="color:#0066ff" id="myModalLabel"><strong></strong></h3>
+					<div class="row">
+						  <div class="col-md-offset-1 col-md-2"><img class="img-circle" alt="" height="100" width="100" th:src="@{/img/avatar04.png}"/></div>
+						  <div id="usrinfo" class="col-md-4">
+						  	<span class="label label-info">账号：</span>&emsp;<span id="user-id" class="text-primary"></span> 
+						  	<p>
+						  	<p>
+						  	<span class="label label-info">用户名：</span>&emsp;<span id="user-name" class="text-primary"></span>
+						  	<p>
+						  	<p>
+						  	<span class="label label-info">上次登录时间：</span>&emsp;<span id="user-time" class="text-primary">未记录</span>
+						  </div>
+					</div>
+					
+				</div>
+				<div class="modal-body">
+					<section class="content">
+                	<div class="box-body">
+                    <!--tab页-->
+                    <div class="nav-tabs-custom">
+                        <!--tab头-->
+                        <ul class="nav nav-tabs">                       		
+                            <li id="tab1" class="active">
+                                <a href="#borrow" data-toggle="tab">借阅情况</a>                                                        
+                            </li>   
+                             <li id="tab2" >
+                                <a href="#back" data-toggle="tab">归还情况</a>                                                        
+                            </li> 
+                                                 
+                        </ul>
+                        <!--tab头/-->
+                        <!--tab内容-->
+                        <div class="tab-content">
+                            <!--表单内容-->
+                            <div class="tab-pane active" id="borrow">
+                                <table id="dataList" class="table  table-hover dataTable">
+					    			<thead>
+					        			<tr class="info">
+											<th class="sorting_asc">期刊名称</th>
+					   						<th class="sorting">年</th>
+					   						<th class="sorting">卷</th>
+					   						<th class="sorting">期</th>	
+					   						<th class="sorting">状态</th>							     						
+					            			<th class="text-center">操作</th>
+					                 	</tr>
+					             	</thead>
+					             <tbody id="borrow-body"> 
+					             </tbody>
+					             </table>
+                              </div>
+                            <!--期刊内容-->
+                            <div class="tab-pane" id="back">
+                                <table id="dataList" class="table  table-hover dataTable">
+					    			<thead>
+					        			<tr class="info">
+											<th class="sorting_asc">期刊名称</th>
+					   						<th class="sorting">年</th>
+					   						<th class="sorting">卷</th>
+					   						<th class="sorting">期</th>	
+					   						<th class="sorting">状态</th>							     						
+					            			<th class="text-center">操作</th>
+					                 	</tr>
+					             	</thead>
+					             <tbody id="back-body"> 
+					             </tbody>
+					             </table>
+                            </div>
+                        </div>
+                        <!--tab内容/-->
+						<!--表单内容/-->
+							 
+                    </div>
+                   </div>
+            	</section>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<hr class="line"/>
+	</div>
+<script type="text/javascript">
+$(function(){
+	$("#service").hover(function(){
+		$(".service").show();
+	},function(){
+		$(".service").hide();
+	});
+	$("#shopcar").hover(function(){
+		$("#shopcarlist").show();
+	},function(){
+		$("#shopcarlist").hide();
+	});
+
+})
+</script>
+
+</body>
+    <div class="banner">
+    </div>
+    <div class="sampling">
+    	<div class="search">
+   			<div class="input-group">
+				<div>
+					<select id="select">
+						<option class="option" value="1">期刊名</option>
+						<option class="option" value="2">作者</option>
+						<option class="option" value="3">关键字</option>
+					</select>
+				</div>
+				<input type="text" id="input" style="color:black" placeholder="请输入">
+		 		<!-- placeholder的点击消失及为空时点击其他继续显示提示  -->
+				<span class=" ">
+					<button id="button" type="submit" onclick="searchPage()" style="font-family:宋体">搜索</button>
+				</span>
+			</div>
+    	</div>
+		<div class="content">
+		    <div class="item">
+		        <h3 class="center">优质期刊推荐</h3>
+		    </div>
+		    <div class="recommend">
+		    	<ul>
+		    		<li class="reli">
+		    			<a class="re1" href="/JournalSystem/magazine1.do"><img src="img/library/读者.jpg" width=166em height=213em></a>
+		    		</li>
+		    		<li class="reli">
+		    			<a class="re2" href="/JournalSystem/magazine2.do"><img src="img/library/意林.jpg" width=166em height=213em></a>
+		    		</li>
+		    		<li class="reli">
+		    			<a class="re2" href="/JournalSystem/magazine3.do"><img src="img/library/计算机学报.jpg" width=166em height=213em></a>
+		    		</li>
+		    		<li class="reli">
+		    			<a class="re2" href="/JournalSystem/magazine4.do"><img src="img/library/软件学报.jpg" width=166em height=213em></a>
+		    		</li>
+		    		<li class="reli">
+		    			<a class="re2" href="/JournalSystem/magazine5.do"><img src="img/library/统计研究.jpg" width=166em height=213em></a>
+		    		</li>
+		    		<li class="reli">
+		    			<a class="re3" href="/JournalSystem/magazine6.do"><img src="img/library/自动化学报.jpg" width=166em height=213em></a>
+		    		</li>
+		    	</ul>
+		    </div>
+		    <div class="item">
+		        <h3 class="center">热门借阅</h3>
+		        <div id="hotmagazine">
+		        </div>
+		    </div>
+		</div>
+    </div>
+    <script>
+//获取cookie
+	function getCookie(cookieName){
+	    var cookieObj={},
+	          cookieSplit=[],
+	          // 以分号（;）分组
+	          cookieArr=document.cookie.split(";");
+	    for(var i=0,len=cookieArr.length;i<len;i++)
+	        if(cookieArr[i]) {
+	            // 以等号（=）分组
+	            cookieSplit=cookieArr[i].split("=");
+	            // Trim() 是自定义的函数，用来删除字符串两边的空格
+	            cookieObj[cookieSplit[0].trim()]=cookieSplit[1].trim();
+	        }
+	    return cookieObj[cookieName];
+	}
+
+	//设置cookie
+	function setCookie(cname, cvalue, exdays) {
+	    var d = new Date();
+	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	    var expires = "expires="+d.toUTCString();
+	    document.cookie = cname + "=" + cvalue + "; " + expires;
+	}
+	
+	
+	//删除cookie 
+	function clearCookie(name) {  
+	    setCookie(name, "", -1);  
+	} 
+	
+	function logout(){
+		var mymessage=confirm("您确定要退出登录吗");
+		if(mymessage==true)
+		{
+			clearCookie("user");//注销的时候清除cookie
+			$.ajax({
+				url:'/JournalSystem/user/logout',
+				type:'post',
+				data:'',
+				cache:'false',
+				success:function(data) {
+				}
+			})
+			window.location.href = window.location.href;
+		}
+	}
+
+	$(function(){
+		if(getCookie("user")){
+			$('#login_button').html("");
+			$('#login_button').html('<a class="behind4" onClick="logout()" style="cursor:pointer;font-family:宋体">注销</a>');
+		}else{
+			$('#login_button').html("");
+			$('#login_button').html('<a class="behind4" href="/JournalSystem/user/login.do" style="font-family:宋体">登录</a>');
+		
+		}
+		$.ajax({
+			url:'/JournalSystem/hotmagazine.do',
+			type:'post',
+			data:'',
+			cache:'false',
+			success:function(data) {
+				console.log(data);
+				for(var i=0; i<data['hotmagazine'].length;i++) {
+					var html;
+					if (i == 0) {
+						html = '<ul> <li class="hot"> <a class="hot1" href="/JournalSystem/magazinehotdetailid/'+data['hotmagazine'][i]['regid']+'.do"><img src="/JournalSystem/img/library/' + data['hotmagazine'][i]['journalname'] + '.jpg"  width=166px height=213px></a></li>';
+					}
+					else if (i == data['hotmagazine'].length - 1) {
+						html = '<li class="hot"> <a class="hot3" href="/JournalSystem/magazinehotdetailid/' +data['hotmagazine'][i]['regid'] + '.do"><img src="/JournalSystem/img/library/' + data['hotmagazine'][i]['journalname'] + '.jpg"  width=166px height=213px></a></li></ul>';
+					}
+					else {
+						html = '<li class="hot"> <a class="hot2" href="/JournalSystem/magazinehotdetailid/'+data['hotmagazine'][i]['regid'] +'.do"><img src="/JournalSystem/img/library/' + data['hotmagazine'][i]['journalname'] + '.jpg"  width=166px height=213px></a></li>';
+					}
+					console.log(data);
+ 					$('#hotmagazine').append(html);
+				}
+			}
+		})
+	})
+</script>
+    </body>
+</html>

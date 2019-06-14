@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.f5.mapper.MagazineRegMapper">
+ 	<insert id="insertRegItem" useGeneratedKeys="true" keyProperty="id"  parameterType="regItem">
+ 		insert into magazineReg(journalName,pubyear,pubvolume,pubphase,pubnumer,pubbor)
+ 	    values(#{journalName},#{pubyear},#{pubvolume},#{pubphase},#{pubnumer},#{pubbor}) 
+ 	</insert>
+ 	<select id="selectRegItem" parameterType="int" resultType="regItem">
+ 		select * from magazineReg where id = #{id}
+ 	</select>
+ 	<update id="updateRegItem">
+ 		update magazineReg set pubbor = #{pubbor} where id =#{id}
+ 	</update>
+ 	<select id="selectLikeName" parameterType="string" resultType="regItem">
+ 		select * from magazineReg where journalName like CONCAT('%',#{journalName},'%')
+ 	</select>
+ 	<select id="selectAllRegItem" resultType="regItem">
+ 		select * from magazineReg
+ 	</select>
+ </mapper>

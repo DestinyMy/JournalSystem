@@ -1,0 +1,114 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>热门借阅期刊</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/goodmagazine.css}" />
+		<script type="text/javascript" th:src="@{/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/plugins/bootstrap/css/bootstrap.min.css}"/>
+	<script type="text/javascript" th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+	</head>
+	<body>
+		<div class="slogon">
+			<ul>
+				<li style="list-style-type: none"><h2 style="font-family:宋体"><a href="/JournalSystem/index.do" style="text-decoration:none">首页</a></h2></li>		
+			</ul>
+		</div>
+		<div>
+			<hr class="line"/>
+		</div>
+		<div id="detail" class="content">
+		</div>
+	<script type="text/javascript">
+	$(function(){
+		var path = window.location.href; //获得当前页面url
+		var start = path.lastIndexOf("/");
+		var end = path.indexOf(".");
+		var id = path.substring(start, end);
+		var url0 = '/JournalSystem/magazinehotcontent/'+ id +'.do';
+		$.ajax({
+			url:url0,
+			type:'post',
+			data:'',
+			cache:'false',
+			datatype: 'json',
+			async: false,
+			success:function(data) {
+				$.ajax({
+					url:'/JournalSystem/magazinehotdetail.do',
+					type:'post',
+					data:{'name':data['magazinehotcontent']['journalname']},
+					cache:'false',
+					datatype: 'json',
+					async: false,
+					success:function(data) {
+						console.log(data)
+						var html = '<h1>' + data['magazineHotDetail'][0]['journalname']+'<span id="borrowbtn"></span>'+'</h1>'+'<hr>'
+						+'<ul> <li><p><strong>CN刊号</strong>：' +data['magazineHotDetail'][0]['cnnumber']+'</p></li> <li><p><strong>ISSN</strong>：' + data['magazineHotDetail'][0]['issn'] +'</p></li><li><p><strong>邮发代号</strong>：'+ data['magazineHotDetail'][0]['postNumber'] +'</p></li><li><p><strong>出版周期</strong>：';
+						if (data['magazineHotDetail'][0]['pubcycle']){
+							html = html + '月刊';
+						}
+						else {
+							html = html + '年刊';
+						}
+						html = html + '</p></li><li><p><strong>出版地</strong>：'+data['magazineHotDetail'][0]['pubplace'] + '</p></li><li><p><strong>主办单位</strong>：'+data['magazineHotDetail'][0]['pubhost']+'</p></li></ul>';
+						html = html + '<div class="image2"> <img src="/JournalSystem/img/library/' + data['magazineHotDetail'][0]['journalname'] + '.jpg"  width=166px height=213px></div>';
+						$('#detail').append(html);
+					}
+				})
+				$('#detail').append('<hr>');
+				$.ajax({
+					url:'/JournalSystem/magazinehotdetaildo.do',
+					type:'post',
+					data:{'journalname':data['magazinehotcontent']['journalname'],'pubyear':data['magazinehotcontent']['pubyear'],'pubvolume':data['magazinehotcontent']['pubvolume'],'pubphase':data['magazinehotcontent']['pubphase']},
+					cache:'false',
+					datatype: 'json',
+					async: false,
+					success:function(data) {
+						$('#borrowbtn').append('<button type="button" onClick="borrow('+data['magazineHotDetail1'][0]['regid']+')" style="margin-left:2em" class="btn btn-danger">借阅</button>');
+						var html;
+						for (var i=0;i<data['magazineHotDetail1'].length;i++) {
+							html = '<h2>论文' +(i + 1)+'</h2>'+'<ul> <li><p><strong>期刊年卷期</strong>：' + data['magazineHotDetail1'][i]['pubyear'] + '年' + data['magazineHotDetail1'][i]['pubvolume'] + '卷' + data['magazineHotDetail1'][i]['pubphase'] +'期'+ '</p></li><li><p><strong>论文题目</strong>：'+ data['magazineHotDetail1'][i]['papertitle'] + '</p></li><li><p><strong>论文作者</strong>：'+ data['magazineHotDetail1'][i]['paperauthor'] + '</p></li><li><p><strong>论文关键词</strong>：'+ data['magazineHotDetail1'][i]['paperkeyword'] + '</p></li><li><p><strong>论文页码</strong>：'+ data['magazineHotDetail1'][i]['paperpagestart'] + '~'+ data['magazineHotDetail1'][i]['paperpageend'] +'</p></li></ul>';
+							$('#detail').append(html+'<br>');
+						}
+					}
+				})
+			}
+		})
+	})
+	//获取cookie
+	function getCookie(cookieName){
+	    var cookieObj={},
+	          cookieSplit=[],
+	          // 以分号（;）分组
+	          cookieArr=document.cookie.split(";");
+	    for(var i=0,len=cookieArr.length;i<len;i++)
+	        if(cookieArr[i]) {
+	            // 以等号（=）分组
+	            cookieSplit=cookieArr[i].split("=");
+	            // Trim() 是自定义的函数，用来删除字符串两边的空格
+	            cookieObj[cookieSplit[0].trim()]=cookieSplit[1].trim();
+	        }
+	    return cookieObj[cookieName];
+	}
+	
+	function borrow(regid){
+		console.log(regid);
+		if(getCookie("user")!=undefined){
+			$.ajax({
+				url:'/JournalSystem/magazineborrow.do',
+				type:'post',
+				data:{'userid':getCookie("user"),"regid":regid},
+				cache:'false',
+				datatype: 'json',
+				async: false,
+				success:function(data) {
+					alert(data['info']);
+				}
+			})
+		}else{
+			alert("请先登录");
+		}
+	}
+	</script>
+	</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商品管理</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <link rel="stylesheet" href="../../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script src="../../plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../js/journal_borrow.js"></script>
+ 
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" >
+  <!-- .box-body -->
+                
+                    <div class="box-header with-border">
+                        <h3 class="box-title">期刊借阅管理</h3>
+                    </div>
+
+                    <div class="box-body">
+
+                        <!-- 数据表格 -->
+                        <div class="table-box">
+
+                            <div class="box-tools pull-right">
+                                <div class="has-feedback">
+                                  状态：<select id="con-select" >
+                                         	<option value="0">全部</option>      
+                                         	<option value="1">未归还</option>    
+                                         	<option value="2">归还未审核</option>    
+                                         	<option value="3">审核通过</option>                                    
+                                        </select>
+							                  期刊名称：<input id="con-input" value=""/>									
+									<button onclick="searchByCondition()" class="btn btn-default" >查询</button>                                    
+                                </div>
+                            </div>
+                            <!--工具栏/-->
+
+			                  <!--数据列表-->
+			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+			                      <thead>
+			                          <tr>
+			                              <th class="" style="padding-right:0px">
+			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue">
+			                              </th> 
+										  <th class="sorting_asc">学号</th>
+										  <th class="sorting_asc">姓名</th>
+									      <th class="sorting">期刊名称</th>
+									      <th class="sorting">年</th>
+									      <th class="sorting">卷</th>
+									      <th class="sorting">期</th>
+									      <th class="sorting">状态</th>									     						
+					                      <th class="text-center">操作</th>
+			                          </tr>
+			                      </thead>
+			                      <tbody id="borrowhistory">
+			                          <tr>
+			                              <td><input  type="checkbox"></td>	
+			                              <td>E11614076</td>
+			                              <td>张珊</td>
+			                              <td>自动化学报</td>		                              
+				                          <td>2017</td>
+				                          <td>43</td>
+				                          <td>1</td>
+				                          <td>已还</td>		                                  
+		                                  <td class="text-center">                                          
+		                                 	  <button type="button" class="btn bg-olive btn-xs">修改</button>                  
+		                                  </td>
+			                          </tr>
+			                      </tbody>
+			                  </table>
+			                  <!--数据列表/--> 
+                        </div>
+                        <!-- 数据表格 /-->
+                     </div>
+                    <!-- /.box-body -->
+			</body>
+</html>

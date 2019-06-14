@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.f5.mapper.MagazineMenuMapper">
+ 	<select id="isExistInMenu" parameterType="string" resultType="int">
+ 		select count(*) from MagazineMenu where journalName = #{journalName}
+ 	</select>
+ 	<insert id="insertMenuItem" parameterType="menuItem">
+ 		insert into MagazineMenu(journalName,cnnumber,issn,postNumber,pubcycle,pubplACE,pubhost) 
+ 		values(#{journalName},#{cnnumber},#{issn},#{postNumber},#{pubcycle},#{pubplace},#{pubhost})
+ 	</insert>
+ 	<select id="selectMenu" parameterType="string" resultType="menuItem">
+ 		select * from MagazineMenu where journalName = #{journalName}
+ 	</select>
+ </mapper>

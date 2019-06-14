@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+<!-- 以下页面不被拦截 -->
+<http pattern="/*.html" security="none"></http>
+<http pattern="/css/**" security="none"></http>
+<http pattern="/js/**" security="none"></http>
+<http pattern="/img/**" security="none"></http>
+<http pattern="/plugins/**" security="none"></http>
+<http pattern="/user/login.do" security="none"></http>
+<http pattern="/user/loginerr.do" security="none"></http>
+<http pattern="/admin/login.do" security="none"></http>
+<http pattern="/admin/loginerr.do" security="none"></http>
+
+<!-- 页面拦截规则 -->
+
+<http pattern="/admin/**" use-expressions="false" authentication-manager-ref="adminAuthManager">
+	<intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
+	<form-login login-processing-url="/admin/login" login-page="/admin/login.do" default-target-url="/admin/index.do"
+	authentication-failure-url="/admin/loginerr.do"/>
+	<csrf disabled="true"/>
+	<logout logout-url="/admin/logout"/>
+</http>
+<http  pattern="/user/**" use-expressions="false" authentication-manager-ref="userAuthManager">
+	<intercept-url pattern="/user/**" access="ROLE_USER"/>
+	<form-login login-processing-url="/user/login" login-page="/user/login.do"  
+	default-target-url="/index.do"
+	authentication-failure-url="/user/loginerr.do"/>
+	<csrf disabled="true"/>
+	<logout logout-url="/user/logout"/>
+</http>
+<!-- 认证管理器 -->
+<authentication-manager id="adminAuthManager">
+	<authentication-provider >
+		<user-service >
+			<user name="admin" password="admin" authorities="ROLE_ADMIN"/>
+		</user-service>
+	</authentication-provider>
+</authentication-manager>
+
+<authentication-manager id="userAuthManager">
+	<authentication-provider user-service-ref="userDetailsServiceImpl"/>
+</authentication-manager>
+<beans:bean id="userDetailsServiceImpl" 
+class="com.f5.serviceImpl.UserDetailsServiceImpl"> 
+</beans:bean>
+
+
+</beans:beans>

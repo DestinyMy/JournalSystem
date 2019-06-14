@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+ 	<typeAliases>
+ 	 	<typeAlias alias="user" type="com.f5.pojo.User"/>
+ 	 	<typeAlias alias="magazinesub" type="com.f5.pojo.MagazineSub"/>
+ 	 	<typeAlias alias="menuItem" type="com.f5.pojo.MenuItem"/>
+ 	 	<typeAlias alias="regItem"   type="com.f5.pojo.RegItem"/>
+ 	 	<typeAlias alias="detailItem" type="com.f5.pojo.DetailItem"/>
+ 	 	<typeAlias alias="magazinehot" type="com.f5.pojo.MagazineHot"/>
+ 	 	<typeAlias alias="magazinehotdetail" type="com.f5.pojo.MagazineHotDetail"/>
+ 	 	<typeAlias alias="magazinehotdetail1" type="com.f5.pojo.MagazineHotDetail1"/>
+ 	 	<typeAlias alias="magazinehotcontent" type="com.f5.pojo.MagazineHotContent"/>
+ 	 	<typeAlias alias="borrowItem" type="com.f5.pojo.BorrowItem"/>
+ 	</typeAliases>
+ 	
+ </configuration>

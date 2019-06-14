@@ -1,0 +1,35 @@
+.slogon {
+	margin-top: 5px;
+	margin-left: -10px;
+}
+.line {
+	margin: 20px -10px 20px -10px;
+	border-top:3px solid red;
+}
+.content {
+	margin-top: 1.25em;
+	margin-right: 12.5em;
+	margin-left: 12.5em;
+}
+.content p{
+	font-size: 1.25em;
+}
+.content .image{
+	width: 10em;
+	height: 15em;
+	margin-left: 48.125em;
+	margin-top:-21.25em;
+}
+.content .image1{
+	width: 10em;
+	height: 15em;
+	margin-left: 48.125em;
+	margin-top:-17.5em;
+}
+.content .bold{
+	font-weight: bold;
+}
+.content .image2{
+	margin-top:-18.7%;
+	margin-left:50%;
+}

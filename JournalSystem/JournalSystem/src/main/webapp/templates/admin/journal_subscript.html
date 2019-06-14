@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>期刊增订</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+  
+    <link rel="stylesheet" href="../../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+	<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../../plugins/bootstrap/js/bootstrap.min.js"></script>
+   
+    
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" >
+     <!-- 正文区域 -->
+     <section class="content">
+
+         <div class="box-body">
+
+             <!--tab页-->
+             <div class="nav-tabs-custom">
+
+                 <!--tab头-->
+                 <ul class="nav nav-tabs">
+                		
+                     <li class="active">
+                         <a href="#home" data-toggle="tab">期刊增订</a>                             
+                     </li>                            
+                 </ul>
+                 <!--tab头/-->
+
+                 <!--tab内容-->
+                 <div class="tab-content">
+
+                     <!--表单内容-->
+                     <div class="tab-pane active" id="home">
+                         <div class="row data-type">                                  
+                            <form id="magazinesub-form" action="" method="post">
+                            <span class="col-md-12" id="hint" style="color:red"></span>
+                             <div class="col-md-2 title">邮发代号</div>
+                             <div class="col-md-10 data">
+                                 <input type="text" name="postNumber" class="form-control"   placeholder="邮发代号" value="">
+                             </div>
+							 <div class="col-md-2 title">期刊名称</div>
+                             <div class="col-md-10 data">
+                                 <input type="text" name="journalName" class="form-control"  placeholder="期刊名称" value="">
+                             </div>
+                             <div class="col-md-2 title">订阅年份</div>
+                             <div class="col-md-10 data">
+                                 <input type="text" name="subscriptYear" class="form-control"    placeholder="订阅 年份" value="">
+                             </div>
+                             <div class="col-md-12 col-md-offset-4">
+                             	<input type="submit" class="btn btn-primary"></a>
+                             </div>
+                             
+                          </form>
+                             
+                         </div>
+                     </div>
+                     
+                     
+                    
+                     
+                 </div>
+                 <!--tab内容/-->
+<!--表单内容/-->
+	 
+              </div>
+           	
+             </div>
+          
+    
+
+
+      </section>
+      <!-- 正文区域 /-->
+<script type="text/javascript">
+	$('#magazinesub-form').submit(function(){
+		$.ajax({
+			url:'/JournalSystem/magazine/addmagazinesub.do',
+			type:'POST',
+			data:$(this).serialize(),
+			cache:false,
+			success:function(data){
+				$(".form-control").val("");
+				if(data['isSuccess']=='true'){
+					$('#hint').text("期刊已添加征订表");
+				}else{
+				}
+			},
+			error:function(data){
+			}
+		})
+		return false;
+	}
+	)
+	</script>
+       
+</body>
+
+</html>

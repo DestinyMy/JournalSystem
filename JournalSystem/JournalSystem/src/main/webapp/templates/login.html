@@ -1,0 +1,56 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>欢迎登录</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/bootstrap/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/templates/signin.css}"/>
+	<script type="text/javascript" th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+	<style>
+		.navbar-brand {
+			font-size:20px;
+			font-family:宋体;
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar" role="navigation">  
+   		<div class="navbar-header">
+   			<a class="navbar-brand" href="/JournalSystem/index.do">首页</a>
+   		</div>
+   		<ul>
+   			<li style="list-style-type: none"><a class="navbar-brand" href="/JournalSystem/admin/login.do">管理员登录</a></li>
+   		</ul>
+	</nav>
+	<form id="loginform" action="/JournalSystem/user/login" method="post" >
+		<div class="mycenter">
+			<div class="mysign">
+				<div class="col-lg-11 text-center text-info">
+					<h2 style="font-family:宋体">请登录</h2>
+				</div>
+				<div>
+					<!--输出错误信息 -->
+	 				<span style="color:red; margin-left:50px" th:text="${error}"></span>  
+					<div class="col-lg-10">
+						<input type="text" name="username" class="form-control" id="username" placeholder="用户账号" required autofocus>
+					</div>
+					<div class="col-lg-10"></div>
+					<div class="col-lg-10">
+						<input type="password" name="password" class="form-control" id="password" placeholder="用户密码" required>
+					</div>
+					<div class="col-lg-10"></div>
+					<div class="col-lg-10 mycheckbox">
+						<input type="checkbox" class="col-lg-1">记住密码
+					</div>
+					<div class="col-lg-10">
+						<button class="btn btn-success col-lg-12" type="submit" onclick="document:loginform.submit()">登录</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

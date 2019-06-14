@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>JournalSystem</display-name>
+  
+  <welcome-file-list>
+    <welcome-file>index.do</welcome-file>
+  </welcome-file-list>
+  <context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/spring-*.xml</param-value>
+	</context-param>
+
+	<!-- 配置ContextLoaderListener用以初始化Spring IOC容器 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<!-- 配置dispatchServlet -->
+	<servlet>
+		<!-- 注意：Spring MVC框架会根据servlet-name配置找到/WEB-INF/dispatcher-servlet.xml -->
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/dispatcher-servlet.xml</param-value>
+		</init-param>
+		<!-- 使得Dispatcher在服务器启动时就被初始化 -->
+		<load-on-startup>2</load-on-startup>
+
+	</servlet>
+
+	<!-- Servlet拦截配置 -->
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	 <listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	 </listener>	
+	 <filter>  
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>  
+	 </filter>  
+	 <filter-mapping>  
+		<filter-name>springSecurityFilterChain</filter-name>  
+		<url-pattern>/*</url-pattern>  
+	 </filter-mapping>	
+</web-app>

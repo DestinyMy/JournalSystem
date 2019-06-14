@@ -1,0 +1,59 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title>欢迎登录</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/webbase.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/pages-login.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/bootstrap/css/bootstrap.min.css}">
+	<style>
+		.navbar-brand {
+			font-size:20px;
+			font-family:宋体;
+		}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar" role="navigation">  
+   		<div class="navbar-header">
+   			<a class="navbar-brand" href="/JournalSystem/index.do">首页</a>
+   		</div>
+   		<ul>
+   			<li style="list-style-type: none"><a class="navbar-brand" href="/JournalSystem/user/login">用户登录</a></li>
+   		</ul>
+	</nav>
+<!--action为空表示提交给当前页面-->
+<div class="container">
+    <div class="row">      
+        <div class="col-xs-4 col-xs-offset-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">管理员登录界面</div>
+                    <div class="panel-body">
+                        <form action="/JournalSystem/admin/login" method="POST">
+                            <div class="input-group">
+							  <span class="input-group-addon glyphicon glyphicon-user" id="basic-addon1"></span>
+							  <input type="text" name="username" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+							</div>
+							<br>
+							<div class="input-group">
+							  <span class="input-group-addon  glyphicon glyphicon-lock" id="basic-addon2"></span>
+							  <input type="password" name="password" class="form-control" placeholder="password" aria-describedby="basic-addon2">
+							</div>                           
+							 <br/>
+                            <input type="submit" value="登录" class="btn btn-primary pull-right">
+                        </form>
+                    </div>
+              </div> 
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript" th:src="@{/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+<script type="text/javascript" th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>
